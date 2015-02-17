@@ -5,17 +5,13 @@ import json
 from requests.auth import HTTPBasicAuth
 import time
 
+# Driver app to proxy API and provide http services
+
 app = Flask(__name__, static_url_path='/static')
 
 @app.route('/')
 def root():
   return app.send_static_file('index.htm')
-
-@app.route("/code-text")
-def a_plain_text_route():
-    response = make_response('foo')
-    response.headers["content-type"] = "text/plain"
-    return response
 
 @app.route('/v1.0/proxy', methods=['POST'])
 def proxy():
@@ -73,8 +69,6 @@ def proxy():
         }
       ]
   
-    print payload
-
     headers = {'content-type': 'application/json'}
 
     t0 = time.time()
@@ -92,7 +86,6 @@ def proxy():
     }
 
     print json.dumps(api_result, sort_keys=False, indent=2)
-
 
     return jsonify(api_result), response.status_code
 

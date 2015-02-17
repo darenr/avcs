@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
@@ -25,6 +27,9 @@
     -o-background-size: cover;
     background-size: cover;
     margin-bottom: 60px;
+  }
+  .navbar-inverse {
+    border-bottom-color: #999;
   }
   .theme-dropdown .dropdown-menu {
     position: static;
@@ -73,27 +78,6 @@
   .ui-autocomplete .ui-menu-item {
     font-size: 0.9em;
   }
-  
-  .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    background-color: #f5f5f5;
-  }
-  body > .container {
-    padding: 20px 15px 0;
-  }
-  .container .text-muted {
-    margin: 20px 0;
-  }
-  .footer > .container {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  code {
-    font-size: 80%;
-  }
   hr {
     border-color: #333;
   }
@@ -128,7 +112,7 @@
         <ul class="nav navbar-nav">
           <li><a href="http://slcn09vmf0080.us.oracle.com:7767/av/docs/resource_Version2.html#path__v2_addressclean.html" target="_blank">API Documentation</a>
           </li>
-          <li><a href="http://docs.oracle.com/cloud/latest/datacs_common/CSDSR/GUID-F0900B3A-9910-4A6C-A1D2-B590CA4E8C17.htm#GUID-F0900B3A-9910-4A6C-A1D2-B590CA4E8C17" target="_blank">Getting Started Guide</a>
+          <li><a href="http://docs.oracle.com/cloud/latest/datacs_common/CSDSR/GUID-F0900B3A-9910-4A6C-A1D2-B590CA4E8C17.htm" target="_blank">Getting Started Guide</a>
           </li>
           <li>
             <a data-toggle="collapse" href="#collapseOptions" aria-expanded="false" aria-controls="collapseOptions">Options</a>
@@ -147,8 +131,7 @@
           <tr width="100%">
             <td width="90%">
               <p>
-                <img src="/static/oracle_trans_white_logo.png" stye="vertical-align: text-top;" height="13">
-                <b>Address Verification Cloud Service</b> A fast, accurate and secure solution for international address verification and standarization in the Cloud. This cloud service allows CRM systems and cloud services to profit from accurate addresses without installing software. Addresses are corrected in fractions of a second and results delivered securely. Your users automatically benefit from the latest geographic reference data correcting misspelled and incomplete addresses.
+                <b>Oracle Address Verification Cloud Service</b> A fast, accurate and secure solution for international address verification and standarization in the Cloud. This cloud service allows CRM systems and cloud services to profit from accurate addresses without installing software. Addresses are corrected in fractions of a second and results delivered securely. Your users automatically benefit from the latest geographic reference data correcting misspelled and incomplete addresses.
               </p>
             </td>
             <td width="10%" style="vertical-align: top;">
@@ -253,7 +236,7 @@
                     <!-- column spacer -->
                   </div>
                   <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary btn-lg">Verify</button>
+                    <button type="submit" class="btn btn-primary">Verify</button>
                   </div>
                 </div>
               </form>
@@ -265,13 +248,6 @@
       </div>
     </div>
   </div>
-
-
-  <footer class="footer">
-    <div class="container">
-      <p class='text-muted'>(c) 2015 Daren Race - Skynet UX Design Labs, Cyberdyne Systems</p>
-    </div>
-  </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -317,38 +293,43 @@
     element.html(html);
   }
 
-  function resultToHTML(result, element) {
+  function resultToHTML(result, searchMode) {
+
+    var element = searchMode ? $('#search_result') : $('#verify_result');
+
     var html = '';
     if (result['verified'] == 'Y') {
       html += '<div class="media">'
       html += ' <div class="media-left"><img width="80" class="media-object" src="/static/check.png" alt="check"></div>';
       html += ' <div class="media-body">';
       html += '   <h3 class="media-heading">' + result['fulladdress'] + '</h3>';
-      html += '   <p><b>' + result['verificationcodedescription'] + '</b></p>';
       html += '   <hr/>';
+      if(!searchMode) {
+        html += '   <p><b>' + result['verificationcodedescription'] + '</b></p>';
 
-      var ms = result['verificationcodedescription'].match(/Score\s([0-9]+)/)
-      var score = 0;
-      if (ms && ms.length == 2) {
-        score = ms[1];
+        var ms = result['verificationcodedescription'].match(/Score\s([0-9]+)/)
+        var score = 0;
+        if (ms && ms.length == 2) {
+          score = ms[1];
+        }
+
+        html += '   <div class="progress">'
+        html += '     <div class="progress-bar  progress-bar-info" role="progressbar" aria-valuenow="' + score + '" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: ' + score + '%">'
+        html += '    accuracy, score: ' + score + '%';
+        html += '     </div>';
+        html += '   </div>';
+        html += '   <dl>';
+        html += '     <dd>Verification Code: ' + result['verificationcode'] + '</dd>';
+        html += '     <dd>Accuracy Description: ' + result['geoaccuracycodedescription'] + '</dd>';
       }
-
-      html += '   <div class="progress">'
-      html += '     <div class="progress-bar  progress-bar-info" role="progressbar" aria-valuenow="' + score + '" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: ' + score + '%">'
-      html += '    Verification accuracy, score: ' + score + '%';
-      html += '     </div>';
-      html += '   </div>';
-      html += '   <dl>';
       if (result['postalcodeprimary']) {
         html += '     <dd>Primary Postal Code: ' + result['postalcodeprimary'] + '</dd>';
-      }
-      html += '     <dd>Verification Code: ' + result['verificationcode'] + '</dd>';
-      html += '     <dd>Accuracy Description: ' + result['geoaccuracycodedescription'] + '</dd>';
+        }
       for (i = 1; i <= 4; i++) {
         if (result['address' + i]) {
           html += '     <dd>Address' + i + ': ' + result['address' + i] + '</dd>'
         }
-      }
+      } 
       html += '     <dd>City: ' + result['city'] + '</dd>';
       html += '     <dd>Subadmin Area: ' + result['subadminarea'] + '</dd>';
       html += '     <dd>Admin Area: ' + result['adminarea'] + '</dd>';
@@ -356,6 +337,7 @@
       html += '     <dd>Country: ' + result['country'] + '</dd>';
       html += '     <dd>Time: ' + result['duration_ms'] + ' ms</dd>';
       html += '   </dl>';
+      html += '   <hr/>';
       if (result['latitude'] && result['longitude']) {
         html += '   <img class="thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?center=' + result['latitude'] + ',' + result['longitude'] + '&zoom=' + parseInt(17 * score / 100) + '&size=' + element.width() + 'x400">';
       }
@@ -372,6 +354,7 @@
       html += '     <dd>Verification Code: ' + result['verificationcode'] + '</dd>';
       html += '     <dd>Time: ' + result['duration_ms'] + ' ms</dd>';
       html += '   </dl>';
+      html += '   <hr/>';
       html += ' </div>';
       html += '</div>';
     }
@@ -387,7 +370,6 @@
     html += '</div>';
 
     element.html(html);
- 
   }
 
   
@@ -461,7 +443,7 @@
     jQuery("#address1").on("autocompleteselect", function(event, ui) {
       var result = cache[ui.item.value];
       if (result) {
-        resultToHTML(result, $('#search_result'));
+        resultToHTML(result, true);
       }
     });
 
@@ -512,7 +494,7 @@
             var result = r.result[0];
             result['fulladdress'] = result['fulladdress'].replace(/[|]/g, ', ');
             result['duration_ms'] = r['duration_ms'];
-            resultToHTML(result, $('#verify_result'));
+            resultToHTML(result, false);
           }
         })
         .fail(function() {
