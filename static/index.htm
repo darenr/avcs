@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+
+
+  <style>
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    padding-top: 70px;
+    padding-bottom: 30px;
+    background: url('/static/city-hazy-blurred-unsharp-night-rain-1920x1080.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-bottom: 60px;
+  }
+  .theme-dropdown .dropdown-menu {
+    position: static;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .theme-showcase > p > .btn {
+    margin: 5px 0;
+  }
+  .theme-showcase .navbar .container {
+    width: auto;
+  }
+  .jumbotron {
+    padding: 30px;
+    background-color: #000;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    /* For IE8 and earlier */
+  }
+  .jumbotron h3 {
+    color: white;
+  }
+  .jumbotron p {
+    color: #bbb;
+    font-size: 1.1em;
+  }
+  #search_result {
+    padding-top: 60px;
+  }
+  #verify_result {
+    padding-top: 60px;
+  }
+  dd {
+    color: #3199c1;
+    font-size: 1.15em;
+    font-weight: bold;
+  }
+  .media-heading {
+    font-size: 2.5em;
+    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1);
+  }
+  .spinner {
+    display: none;
+    float: right;
+  }
+  .ui-autocomplete .ui-menu-item {
+    font-size: 0.9em;
+  }
+  
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #f5f5f5;
+  }
+  body > .container {
+    padding: 20px 15px 0;
+  }
+  .container .text-muted {
+    margin: 20px 0;
+  }
+  #cat {
+    margin-top: -120px;
+    float: right;
+  } 
+  .footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  code {
+    font-size: 80%;
+  }
+  hr {
+    border-color: #333;
+  }
+  .badge {
+    background-color: #3199c1;
+    vertical-align: middle;
+  }
+  #titanic { 
+    float: none; 
+  }
+  </style>
+
+  <title>AVCS - Oracle Address Verification Cloud Service</title>
+</head>
+
+<body role="document">
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Oracle Address Verification Cloud Service</a>
+      </div>
+
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="http://slcn09vmf0080.us.oracle.com:7767/av/docs/resource_Version2.html#path__v2_addressclean.html" target="_blank">API Documentation</a>
+          </li>
+          <li><a href="http://docs.oracle.com/cloud/latest/datacs_common/CSDSR/GUID-F0900B3A-9910-4A6C-A1D2-B590CA4E8C17.htm#GUID-F0900B3A-9910-4A6C-A1D2-B590CA4E8C17" target="_blank">Getting Started Guide</a>
+          </li>
+          <li>
+            <a data-toggle="collapse" href="#collapseOptions" aria-expanded="false" aria-controls="collapseOptions">Options</a>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </div>
+
+  <div class="container theme-showcase" role="main">
+
+    <div class="jumbotron-wrapper">
+      <div class="jumbotron">
+        <table>
+          <tr width="100%">
+            <td width="90%">
+              <p>
+                <img src="/static/oracle_trans_white_logo.png" stye="vertical-align: text-top;" height="13">
+                <b>Address Verification Cloud Service</b> A fast, accurate and secure solution for international address verification and standarization in the Cloud. This cloud service allows CRM systems and cloud services to profit from accurate addresses without installing software. Addresses are corrected in fractions of a second and results delivered securely. Your users automatically benefit from the latest geographic reference data correcting misspelled and incomplete addresses.
+              </p>
+            </td>
+            <td width="10%" style="vertical-align: top;">
+              <div class="spinner">
+                <img src="/static/spinner.gif">
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="collapse" id="collapseOptions">
+          <div class="well">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="country_code" class="col-sm-2 control-label">Country Code</label>
+                <div class="col-sm-10">
+                  <input type="text" style="text-transform:uppercase" maxlength="2" class="form-control" id="country_code" size="2" placeholder="Country Code ISO 3166" value="US">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="origin_server" class="col-sm-2 control-label">API URL</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="origin_server" placeholder="API URL" value="http://slcn09vmf0053.us.oracle.com:7767/av/api/v2/addressclean">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="username" class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="username" placeholder="username URL" value="avuser">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="password" placeholder="Password" value="welcome1">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div role="tabpanel">
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#search" aria-controls="search" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Search</a>
+            </li>
+            <li role="presentation"><a href="#verify" aria-controls="verify" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>&nbsp;Verify</a>
+            </li>
+          </ul>
+
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="search">
+              <h3>[<span class="cc"></span>] Enter an address to search</h3>
+              <input class="form-control" data-provider="typeahead" autocomplete="off" id="address1" placeholder="Enter address">
+              <div id="search_result"></div>
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="verify">
+
+              <h3>[<span class="cc"></span>] Enter an address to verify:</h3>
+
+              <form id="verify" class="form-horizontal">
+                <div class="form-group">
+                  <label for="veryifyAddress1" class="col-sm-2 control-label">Address1:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="verifyAddress1" autocomplete="off" placeholder="Address1" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="veryifyAddress2" class="col-sm-2 control-label">Address2:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="verifyAddress2" autocomplete="off" placeholder="Address2" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="verifyCity" class="col-sm-2 control-label">City</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="verifyCity" autocomplete="off" placeholder="City" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="verifyAdminArea" class="col-sm-2 control-label">Admin Area:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="verifyAdminArea" autocomplete="off" placeholder="Admin Area (California)" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="verifyPostalCode" class="col-sm-2 control-label">Postal Code</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="verifyPostalCode" autocomplete="off" placeholder="Postal Code" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="verifyMinLevel" class="col-sm-2 control-label">Min Verification Level</label>
+                  <div class="col-sm-2">
+                    <input type="number" class="form-control" id="verifyMinLevel" pattern="[1-5]" min="1" max="5" step="1" value="3" maxlenth="1" placeholder="Min Verification Level" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2">
+                    <!-- column spacer -->
+                  </div>
+                  <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary btn-lg">Verify</button>
+                  </div>
+                </div>
+              </form>
+              <div id="verify_result"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="footer">
+    <div class="container">
+      <p class='text-muted'>(c) 2015 Daren Race - Skynet UX Design Labs, Cyberdyne Systems</p>
+      <img src="/static/cat.png" height="60" id="cat">
+    </div>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+  <script>
+  $('input[type=number]').on('keypress', function(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  })
+
+  function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+      json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+      var cls = 'number';
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) {
+          cls = 'key';
+        } else {
+          cls = 'string';
+        }
+      } else if (/true|false/.test(match)) {
+        cls = 'boolean';
+      } else if (/null/.test(match)) {
+        cls = 'null';
+      }
+      return '<span class="' + cls + '">' + match + '</span>';
+    });
+  }
+
+  function errorToHTML(error, element) {
+    $('.spinner').fadeOut(1000);
+    var html = '';
+    html += '<div class="alert alert-info" role="alert">';
+    html += '  <strong>Error</strong>';    
+    html += '  <br/>' + error;
+    html += '</div>';
+    element.html(html);
+  }
+
+  function resultToHTML(result, element) {
+    var html = '';
+    if (result['verified'] == 'Y') {
+      html += '<div class="media">'
+      html += ' <div class="media-left"><img width="80" class="media-object" src="/static/check.png" alt="check"></div>';
+      html += ' <div class="media-body">';
+      html += '   <h3 class="media-heading">' + result['fulladdress'] + '</h3>';
+      html += '   <p><b>' + result['verificationcodedescription'] + '</b></p>';
+      html += '   <hr/>';
+
+      var ms = result['verificationcodedescription'].match(/Score\s([0-9]+)/)
+      var score = 0;
+      if (ms && ms.length == 2) {
+        score = ms[1];
+      }
+
+      html += '   <div class="progress">'
+      html += '     <div class="progress-bar  progress-bar-info" role="progressbar" aria-valuenow="' + score + '" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: ' + score + '%">'
+      html += '    Verification accuracy, score: ' + score + '%';
+      html += '     </div>';
+      html += '   </div>';
+      html += '   <dl>';
+      if (result['postalcodeprimary']) {
+        html += '     <dd>Primary Postal Code: ' + result['postalcodeprimary'] + '</dd>';
+      }
+      html += '     <dd>Verification Code: ' + result['verificationcode'] + '</dd>';
+      html += '     <dd>Accuracy Description: ' + result['geoaccuracycodedescription'] + '</dd>';
+      for (i = 1; i <= 4; i++) {
+        if (result['address' + i]) {
+          html += '     <dd>Address' + i + ': ' + result['address' + i] + '</dd>'
+        }
+      }
+      html += '     <dd>City: ' + result['city'] + '</dd>';
+      html += '     <dd>Subadmin Area: ' + result['subadminarea'] + '</dd>';
+      html += '     <dd>Admin Area: ' + result['adminarea'] + '</dd>';
+      html += '     <dd>Postal Code: ' + result['postalcode'] + '</dd>';
+      html += '     <dd>Country: ' + result['country'] + '</dd>';
+      html += '     <dd>Time: ' + result['duration_ms'] + ' ms</dd>';
+      html += '   </dl>';
+      if (result['latitude'] && result['longitude']) {
+        html += '   <img class="thumbnail" src="https://maps.googleapis.com/maps/api/staticmap?center=' + result['latitude'] + ',' + result['longitude'] + '&zoom=' + parseInt(17 * score / 100) + '&size=' + element.width() + 'x400">';
+      }
+
+      html += '</div>';
+    } else {
+      html += '<div class="media">'
+      html += ' <div class="media-left"><img width="80" class="media-object" src="/static/unverified.png" alt="unverified"></div>';
+      html += ' <div class="media-body">';
+      html += '   <h3 class="media-heading">' + result['fulladdress'] + '</h3>';
+      html += '   <p><b>' + result['verificationcodedescription'] + '</b></p>';
+      html += '   <hr/>';
+      html += '   <dl>';
+      html += '     <dd>Verification Code: ' + result['verificationcode'] + '</dd>';
+      html += '     <dd>Time: ' + result['duration_ms'] + ' ms</dd>';
+      html += '   </dl>';
+      html += ' </div>';
+      html += '</div>';
+    }
+
+    // debug window
+    html += '<a class="btn btn-small" data-toggle="collapse" href="#collapseDebug' + element.attr('id') + '" aria-expanded="false" aria-controls="collapseDebug">';
+    html += '  <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp; View JSON result';
+    html += '</a>';
+    html += '<div class="collapse" id="collapseDebug'  + element.attr('id') + '">';
+    html += '  <div class="alert"><pre>';
+    html += syntaxHighlight(result);
+    html += '  </pre></div>';
+    html += '</div>';
+
+    element.html(html);
+ 
+  }
+
+  
+
+  var cache = {};
+
+
+  $(document).ready(function() {
+
+    $('.cc').html($("#country_code").val());
+
+    $("#country_code").on('blur', function() {
+      $('.cc').html($("#country_code").val().toUpperCase());
+    });
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      if(e.target.attributes.href.value == '#verify') {
+        jQuery("#verifyAddress1").focus();
+      }
+      else if(e.target.attributes.href.value == '#search') {
+        jQuery("#address1").focus();
+      }
+  
+    })
+
+    jQuery("#address1").focus();
+    jQuery("#address1").autocomplete({
+      source: function(request, response) {
+        var country = $('#country_code').val();
+        var origin_server = $('#origin_server').val();
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        $('#search_result').html('');
+        var address1 = $('#address1').val();
+        if (address1.split(' ').length > 1) {
+          $('.spinner').fadeIn('fast');
+          var jqXHR = $.ajax({
+              url: "/v1.0/proxy",
+              contentType: 'application/json',
+              type: "POST",
+              data: JSON.stringify({
+                "address1": address1,
+                "mode": 'S',
+                "country": country,
+                "origin_server": origin_server,
+                "username": username,
+                "password": password
+              })
+            })
+            .done(function(r) {
+              $('.spinner').fadeOut(1000);
+              var list = []
+              $.each(r.result, function(i) {
+                r.result[i]['fulladdress'] = r.result[i]['fulladdress'].replace(/[|]/g, ', ');
+                r.result[i]['duration_ms'] = r['duration_ms']
+                var fullAddress = r.result[i]['fulladdress']
+                cache[fullAddress] = r.result[i];
+                list.push(fullAddress);
+              });
+              response(list);
+            })
+            .fail(function() {
+              errorToHTML(jqXHR.statusText, $('#search_result'));
+            });
+        }
+      },
+      minLength: 5
+    });
+
+    jQuery("#address1").on("autocompleteselect", function(event, ui) {
+      var result = cache[ui.item.value];
+      if (result) {
+        resultToHTML(result, $('#search_result'));
+      }
+    });
+
+
+    jQuery("#verify").submit(function(event) {
+      event.preventDefault();
+
+      var country = $('#country_code').val();
+      var origin_server = $('#origin_server').val();
+      var address1 = $('#verifyAddress1').val();
+      var address2 = $('#verifyAddress2').val();
+      var address3 = $('#verifyAddress3').val();
+      var address4 = $('#verifyAddress4').val();
+      var city = $('#verifyCity').val();
+      var adminarea = $('#verifyAdminArea').val();
+      var postalcode = $('#verifyPostalCode').val();
+      var minimumverificationlevel = $('#verifyMinLevel').val();
+      if (minimumverificationlevel < 0 || minimumverificationlevel > 5) {
+        minimumverificationlevel = 5;
+      }
+
+      var username = $('#username').val();
+      var password = $('#password').val();
+      console.log(username)
+      console.log(password)
+
+      var jqXHR = $.ajax({
+          url: "/v1.0/proxy",
+          contentType: 'application/json',
+          type: "POST",
+          data: JSON.stringify({
+            "address1": address1,
+            "address2": address2,
+            "mode": 'V',
+            "country": country,
+            "username": username,
+            "password": password,
+            "origin_server": origin_server,
+            "city": city,
+            "adminarea": adminarea,
+            "postalcode": postalcode,
+            "minimumverificationlevel": minimumverificationlevel
+          })
+        })
+        .done(function(r) {
+          $('.spinner').fadeOut(2000);
+          if (r.result.length > 0) {
+            var result = r.result[0];
+            result['fulladdress'] = result['fulladdress'].replace(/[|]/g, ', ');
+            result['duration_ms'] = r['duration_ms'];
+            resultToHTML(result, $('#verify_result'));
+          }
+        })
+        .fail(function() {
+          errorToHTML(jqXHR.statusText, $('#verify_result'));
+        });
+
+    });
+
+
+  });
+  </script>
+
+
+</html>
