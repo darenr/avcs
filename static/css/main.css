@@ -1,0 +1,71 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background: url('/static/city-hazy-blurred-unsharp-night-rain-1920x1080.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-bottom: 60px;
+}
+.navbar-inverse {
+  border-bottom-color: #999;
+}
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+.theme-showcase .navbar .container {
+  width: auto;
+}
+.jumbotron {
+  padding: 30px;
+  background-color: #000;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  /* For IE8 and earlier */
+}
+.jumbotron h3 {
+  color: white;
+}
+.jumbotron p {
+  color: #bbb;
+  font-size: 1.1em;
+}
+#search_result {
+  padding-top: 60px;
+}
+#verify_result {
+  padding-top: 60px;
+}
+dd {
+  color: #3199c1;
+  font-size: 1.15em;
+  font-weight: bold;
+}
+.media-heading {
+  font-size: 2.5em;
+  text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1);
+}
+.spinner {
+  display: none;
+  float: right;
+}
+.ui-autocomplete .ui-menu-item {
+  font-size: 0.9em;
+}
+hr {
+  border-color: #333;
+}
+.badge {
+  background-color: #3199c1;
+  vertical-align: middle;
+}
