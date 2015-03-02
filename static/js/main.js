@@ -52,7 +52,7 @@ function resultToHTML(result, searchMode) {
       html += '   <p><b>' + result['verificationcodedescription'] + '</b></p>';
 
       var ms = result['verificationcodedescription'].match(/Score\s([0-9]+)/)
-      var score = 0;
+      var core = 0;
       if (ms && ms.length == 2) {
         score = ms[1];
       }
@@ -192,6 +192,15 @@ $(document).ready(function() {
   });
 
 
+  jQuery("#verify_clear").on("click", function() {
+    $('#verifyAddress1').val('');
+    $('#verifyAddress2').val('');
+    $('#verifyCity').val('');
+    $('#verifyAdminArea').val('');
+    $('#verifyPostalCode').val('');
+    $('#verifyMinLevel').val('3');
+  });
+
   jQuery("#verify").submit(function(event) {
     event.preventDefault();
 
@@ -199,8 +208,6 @@ $(document).ready(function() {
     var origin_server = $('#origin_server').val();
     var address1 = $('#verifyAddress1').val();
     var address2 = $('#verifyAddress2').val();
-    var address3 = $('#verifyAddress3').val();
-    var address4 = $('#verifyAddress4').val();
     var city = $('#verifyCity').val();
     var adminarea = $('#verifyAdminArea').val();
     var postalcode = $('#verifyPostalCode').val();
@@ -211,8 +218,6 @@ $(document).ready(function() {
 
     var username = $('#username').val();
     var password = $('#password').val();
-    console.log(username)
-    console.log(password)
 
     var jqXHR = $.ajax({
         url: "/v1.0/proxy",
@@ -239,6 +244,7 @@ $(document).ready(function() {
           result['fulladdress'] = result['fulladdress'].replace(/[|]/g, ', ');
           result['duration_ms'] = r['duration_ms'];
           resultToHTML(result, false);
+          $('#verify_result').ScrollTo();
         }
       })
       .fail(function() {

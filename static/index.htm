@@ -122,43 +122,43 @@
             </div>
             <div role="tabpanel" class="tab-pane fade" id="verify">
 
-              <h3>[<span class="cc"></span>] Enter an address to verify:</h3>
+              <h3>[<span class="cc"></span>] Enter an address to verify: <span style="float: right" id="verify_clear" title="clear fields" class="glyphicon glyphicon-remove" aria-hidden="true"></span></h3>
 
               <form id="verify" class="form-horizontal">
                 <div class="form-group">
                   <label for="veryifyAddress1" class="col-sm-2 control-label">Address1:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="verifyAddress1" autocomplete="off" placeholder="Address1" />
+                    <input type="text" class="form-control" id="verifyAddress1" autocomplete="off" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="veryifyAddress2" class="col-sm-2 control-label">Address2:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="verifyAddress2" autocomplete="off" placeholder="Address2" />
+                    <input type="text" class="form-control" id="verifyAddress2" autocomplete="off" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="verifyCity" class="col-sm-2 control-label">City</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="verifyCity" autocomplete="off" placeholder="City" />
+                    <input type="text" class="form-control" id="verifyCity" autocomplete="off" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="verifyAdminArea" class="col-sm-2 control-label">Admin Area:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="verifyAdminArea" autocomplete="off" placeholder="Admin Area (California)" />
+                    <input type="text" class="form-control" id="verifyAdminArea" autocomplete="off" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="verifyPostalCode" class="col-sm-2 control-label">Postal Code</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="verifyPostalCode" autocomplete="off" placeholder="Postal Code" />
+                    <input type="text" class="form-control" id="verifyPostalCode" autocomplete="off" />
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="verifyMinLevel" class="col-sm-2 control-label">Min Verification Level</label>
                   <div class="col-sm-2">
-                    <input type="number" class="form-control" id="verifyMinLevel" pattern="[1-5]" min="1" max="5" step="1" value="3" maxlenth="1" placeholder="Min Verification Level" />
+                    <input type="number" class="form-control" id="verifyMinLevel" pattern="[1-5]" min="1" max="5" step="1" value="3" maxlenth="1" />
                   </div>
                 </div>
                 <div class="form-group">
@@ -166,7 +166,7 @@
                     <!-- column spacer -->
                   </div>
                   <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Verify</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Verify</button>
                   </div>
                 </div>
               </form>
@@ -183,6 +183,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 
+  <script src="/static/js/jquery-scrollto.js"></script>
   <script src="/static/js/main.js"></script>
 
 </html>
